@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير تحليل المتجر الإلكتروني | {{report_date}}</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #7C3AED;
+            --accent-color: #10B981;
+            --warning-color: #F59E0B;
+            --danger-color: #EF4444;
+            --dark-color: #1F2937;
+            --light-color: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Cairo', 'Arial', sans-serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background-color: #ffffff;
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* Header Styles */
+        .report-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px 15px 0 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .report-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .report-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .header-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Cover Page */
+        .cover-page {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cover-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cover-logo {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .cover-logo i {
+            font-size: 70px;
+            color: var(--primary-color);
+        }
+        
+        /* Section Styles */
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-header h2 i {
+            background: var(--primary-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        /* Executive Summary */
+        .executive-summary {
+            background: linear-gradient(to left, #EFF6FF, #F0F9FF);
+            padding: 40px;
+            border-radius: 15px;
+            border-right: 5px solid var(--primary-color);
+        }
+        
+        .summary-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .summary-point {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .summary-point:hover {
+            transform: translateY(-5px);
+        }
+        
+        .summary-point h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .kpi-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+        
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .kpi-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            width: 70px;
+            height: 70px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            margin: 15px 0;
+        }
+        
+        .kpi-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        .kpi-trend {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .trend-up {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .trend-down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .trend-neutral {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--text-secondary);
+        }
+        
+        /* Charts Container */
+        .charts-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--border-color);
+        }
+        
+        .chart-placeholder {
+            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+            height: 400px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border: 2px dashed var(--border-color);
+            margin: 20px 0;
+        }
+        
+        .chart-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        /* Analysis Cards */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .analysis-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+        
+        .analysis-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .analysis-card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 25px;
+        }
+        
+        .analysis-card-header h3 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .analysis-card-content {
+            padding: 25px;
+        }
+        
+        .analysis-list {
+            list-style: none;
+        }
+        
+        .analysis-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .analysis-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .analysis-list li i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-md);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .data-table thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+        
+        .data-table th {
+            padding: 18px 15px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+        
+        .data-table tbody tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        
+        .data-table tbody tr:hover {
+            background-color: #EFF6FF;
+        }
+        
+        .data-table td {
+            padding: 15px;
+            text-align: right;
+        }
+        
+        /* Recommendations */
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .recommendation-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .recommendation-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .recommendation-card::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: var(--primary-color);
+        }
+        
+        .rec-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .rec-priority {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .priority-high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .priority-low {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-color);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-right: 80px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        /* Footer */
+        .report-footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px;
+            border-radius: 0 0 15px 15px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h4 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-contact {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        
+        /* Page Break */
+        .page-break {
+            page-break-before: always;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px dashed var(--border-color);
+        }
+        
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-left { text-align: left; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-30 { margin-bottom: 30px; }
+        .mb-40 { margin-bottom: 40px; }
+        .mt-20 { margin-top: 20px; }
+        .mt-30 { margin-top: 30px; }
+        .mt-40 { margin-top: 40px; }
+        .p-20 { padding: 20px; }
+        .p-30 { padding: 30px; }
+        .p-40 { padding: 40px; }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge-primary {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+        
+        /* Print Styles */
+        @media print {
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .report-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .cover-page {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-after: always;
+            }
+            
+            .kpi-card:hover,
+            .analysis-card:hover,
+            .recommendation-card:hover {
+                transform: none;
+                box-shadow: var(--shadow-md);
+            }
+            
+            .page-break {
+                page-break-before: always;
+                border: none;
+                margin-top: 0;
+                padding-top: 0;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .report-header h1 {
+                font-size: 2rem;
+            }
+            
+            .cover-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analysis-grid,
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Cover Page -->
+        <div class="cover-page">
+            <div class="cover-logo">
+                <i class="fas fa-store"></i>
+            </div>
+            <h1 class="cover-title">تقرير تحليل المتجر الإلكتروني</h1>
+            <p class="cover-subtitle">تحليل متكامل لأداء متجرك الإلكتروني</p>
+            
+            <div class="mt-40" style="max-width: 600px;">
+                <div class="p-30" style="background: rgba(255,255,255,0.1); border-radius: 10px; backdrop-filter: blur(10px);">
+                    <h3 style="margin-bottom: 20px; font-size: 1.5rem;">معلومات التقرير</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <strong>اسم المتجر:</strong><br>
+                            <span>{{store_name}}</span>
+                        </div>
+                        <div>
+                            <strong>نوع المتجر:</strong><br>
+                            <span>{{store_type}}</span>
+                        </div>
+                        <div>
+                            <strong>فترة التقرير:</strong><br>
+                            <span>{{report_period}}</span>
+                        </div>
+                        <div>
+                            <strong>رقم التقرير:</strong><br>
+                            <span>{{report_id}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-40">
+                <p style="font-size: 0.9rem; opacity: 0.8;">
+                    تم إنشاء هذا التقرير تلقائياً بتاريخ {{generation_date}}<br>
+                    بواسطة نظام التحليل الذكي للمتاجر الإلكترونية
+                </p>
+            </div>
+        </div>
+        
+        <!-- Page Break for Print -->
+        <div class="page-break"></div>
+        
+        <!-- Report Header -->
+        <div class="report-header">
+            <h1><i class="fas fa-chart-line"></i> تقرير تحليل المتجر الإلكتروني</h1>
+            <p class="subtitle">تحليل شمولي لأداء متجر {{store_name}}</p>
+            
+            <div class="header-info">
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <strong>فترة التقرير:</strong><br>
+                    {{report_period}}
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-tag"></i>
+                    <strong>نوع المتجر:</strong><br>
+                    {{store_type}}
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-hashtag"></i>
+                    <strong>رقم التقرير:</strong><br>
+                    {{report_id}}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Table of Contents -->
+        <div class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-list-ol"></i> فهرس المحتويات</h2>
+            </div>
+            
+            <div class="p-30" style="background: #F9FAFB; border-radius: 10px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div>
+                        <ol style="list-style-type: arabic-indic; padding-right: 20px;">
+                            <li><a href="#executive-summary" style="color: var(--primary-color); text-decoration: none;">الملخص التنفيذي</a></li>
+                            <li><a href="#store-overview" style="color: var(--primary-color); text-decoration: none;">نظرة عامة على المتجر</a></li>
+                            <li><a href="#performance-kpis" style="color: var(--primary-color); text-decoration: none;">مؤشرات الأداء الرئيسية</a></li>
+                        </ol>
+                    </div>
+                    <div>
+                        <ol start="4" style="list-style-type: arabic-indic; padding-right: 20px;">
+                            <li><a href="#sales-analysis" style="color: var(--primary-color); text-decoration: none;">تحليل المبيعات</a></li>
+                            <li><a href="#customer-analysis" style="color: var(--primary-color); text-decoration: none;">تحليل العملاء</a></li>
+                            <li><a href="#product-analysis" style="color: var(--primary-color); text-decoration: none;">تحليل المنتجات</a></li>
+                        </ol>
+                    </div>
+                    <div>
+                        <ol start="7" style="list-style-type: arabic-indic; padding-right: 20px;">
+                            <li><a href="#marketing-analysis" style="color: var(--primary-color); text-decoration: none;">تحليل التسويق</a></li>
+                            <li><a href="#recommendations" style="color: var(--primary-color); text-decoration: none;">التوصيات</a></li>
+                            <li><a href="#appendix" style="color: var(--primary-color); text-decoration: none;">الملاحق</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Executive Summary -->
+        <div class="section" id="executive-summary">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> الملخص التنفيذي</h2>
+            </div>
+            
+            <div class="executive-summary">
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                    {{executive_summary}}
+                </p>
+                
+                <div class="summary-points">
+                    <div class="summary-point">
+                        <h4><i class="fas fa-trophy"></i> النجاحات الرئيسية</h4>
+                        <ul class="analysis-list">
+                            {{#key_successes}}
+                            <li><i class="fas fa-check-circle"></i> {{.}}</li>
+                            {{/key_successes}}
+                        </ul>
+                    </div>
+                    
+                    <div class="summary-point">
+                        <h4><i class="fas fa-exclamation-triangle"></i> التحديات الرئيسية</h4>
+                        <ul class="analysis-list">
+                            {{#key_challenges}}
+                            <li><i class="fas fa-exclamation-circle"></i> {{.}}</li>
+                            {{/key_challenges}}
+                        </ul>
+                    </div>
+                    
+                    <div class="summary-point">
+                        <h4><i class="fas fa-bullseye"></i> الفرص المستقبلية</h4>
+                        <ul class="analysis-list">
+                            {{#key_opportunities}}
+                            <li><i class="fas fa-lightbulb"></i> {{.}}</li>
+                            {{/key_opportunities}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Store Overview -->
+        <div class="section" id="store-overview">
+            <div class="section-header">
+                <h2><i class="fas fa-store"></i> نظرة عامة على المتجر</h2>
+            </div>
+            
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="kpi-value">{{total_orders}}</div>
+                    <div class="kpi-label">إجمالي الطلبات</div>
+                    <div class="kpi-trend trend-up">+12% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="kpi-value">{{total_customers}}</div>
+                    <div class="kpi-label">إجمالي العملاء</div>
+                    <div class="kpi-trend trend-up">+8% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="kpi-value">{{total_products}}</div>
+                    <div class="kpi-label">إجمالي المنتجات</div>
+                    <div class="kpi-trend trend-neutral">مستقر</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="kpi-value">{{analysis_period_days}}</div>
+                    <div class="kpi-label">أيام التحليل</div>
+                    <div class="kpi-trend trend-neutral">-</div>
+                </div>
+            </div>
+            
+            <div class="mt-40">
+                <div class="analysis-card">
+                    <div class="analysis-card-header">
+                        <h3><i class="fas fa-info-circle"></i> معلومات أساسية عن المتجر</h3>
+                    </div>
+                    <div class="analysis-card-content">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div>
+                                <strong>اسم المتجر:</strong><br>
+                                <span>{{store_name}}</span>
+                            </div>
+                            <div>
+                                <strong>نوع المتجر:</strong><br>
+                                <span>{{store_type}}</span>
+                            </div>
+                            <div>
+                                <strong>تاريخ البدء:</strong><br>
+                                <span>{{store_start_date}}</span>
+                            </div>
+                            <div>
+                                <strong>نطاق الأسعار:</strong><br>
+                                <span>{{price_range}}</span>
+                            </div>
+                            <div>
+                                <strong>المناطق الرئيسية:</strong><br>
+                                <span>{{main_regions}}</span>
+                            </div>
+                            <div>
+                                <strong>التصنيف الرئيسي:</strong><br>
+                                <span>{{main_category}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Performance KPIs -->
+        <div class="section" id="performance-kpis">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> مؤشرات الأداء الرئيسية (KPIs)</h2>
+            </div>
+            
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="kpi-value">{{total_revenue}}</div>
+                    <div class="kpi-label">إجمالي الإيرادات</div>
+                    <div class="kpi-trend trend-up">+15% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="kpi-value">{{growth_rate}}%</div>
+                    <div class="kpi-label">معدل النمو</div>
+                    <div class="kpi-trend trend-up">+3% عن المستهدف</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="kpi-value">{{aov}}</div>
+                    <div class="kpi-label">متوسط قيمة الطلب (AOV)</div>
+                    <div class="kpi-trend trend-up">+5% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="kpi-value">{{conversion_rate}}%</div>
+                    <div class="kpi-label">معدل التحويل</div>
+                    <div class="kpi-trend trend-down">-1% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <div class="kpi-value">{{repeat_rate}}%</div>
+                    <div class="kpi-label">معدل التكرار</div>
+                    <div class="kpi-trend trend-up">+2% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-cart-arrow-down"></i>
+                    </div>
+                    <div class="kpi-value">{{cart_abandonment}}%</div>
+                    <div class="kpi-label">معدل هجر عربة التسوق</div>
+                    <div class="kpi-trend trend-down">-3% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <div class="kpi-value">{{customer_lifetime_value}}</div>
+                    <div class="kpi-label">قيمة العميل مدى الحياة (CLV)</div>
+                    <div class="kpi-trend trend-up">+10% عن الفترة السابقة</div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="kpi-value">{{profit_margin}}%</div>
+                    <div class="kpi-label">هامش الربح</div>
+                    <div class="kpi-trend trend-neutral">مستقر</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sales Analysis -->
+        <div class="section" id="sales-analysis">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> تحليل المبيعات</h2>
+            </div>
+            
+            <div class="charts-container">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;">
+                    <i class="fas fa-chart-area"></i> اتجاهات المبيعات الشهرية
+                </h3>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                    <p>رسم بياني يظهر اتجاه المبيعات الشهرية</p>
+                    <small>سيتم إضافة الرسم البياني بناءً على بياناتك</small>
+                </div>
+                
+                <div class="mt-40">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">
+                        <i class="fas fa-calendar-alt"></i> الأنماط الموسمية
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div>
+                            <h4 style="color: var(--secondary-color); margin-bottom: 15px;">أفضل أشهر المبيعات</h4>
+                            <ul class="analysis-list">
+                                {{#top_sales_months}}
+                                <li><i class="fas fa-calendar-check"></i> {{month}}: {{value}}</li>
+                                {{/top_sales_months}}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--secondary-color); margin-bottom: 15px;">أفضل أيام الأسبوع</h4>
+                            <ul class="analysis-list">
+                                {{#top_sales_days}}
+                                <li><i class="fas fa-calendar-day"></i> {{day}}: {{value}}</li>
+                                {{/top_sales_days}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Customer Analysis -->
+        <div class="section" id="customer-analysis">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> تحليل العملاء</h2>
+            </div>
+            
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <div class="analysis-card-header">
+                        <h3><i class="fas fa-user-friends"></i> شرائح العملاء</h3>
+                    </div>
+                    <div class="analysis-card-content">
+                        <div class="chart-placeholder" style="height: 250px; margin-bottom: 20px;">
+                            <i class="fas fa-chart-pie"></i>
+                            <p>توزيع شرائح العملاء</p>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الشريحة</th>
+                                    <th>عدد العملاء</th>
+                                    <th>نسبة الإيرادات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#customer_segments}}
+                                <tr>
+                                    <td>{{segment}}</td>
+                                    <td>{{count}}</td>
+                                    <td>{{revenue_share}}%</td>
+                                </tr>
+                                {{/customer_segments}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="analysis-card">
+                    <div class="analysis-card-header">
+                        <h3><i class="fas fa-map-marker-alt"></i> التوزيع الجغرافي</h3>
+                    </div>
+                    <div class="analysis-card-content">
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--secondary-color); margin-bottom: 15px;">أفضل المناطق أداءً</h4>
+                            <ul class="analysis-list">
+                                {{#top_regions}}
+                                <li><i class="fas fa-map-pin"></i> {{region}}: {{value}}</li>
+                                {{/top_regions}}
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--secondary-color); margin-bottom: 15px;">المدن الرئيسية</h4>
+                            <ul class="analysis-list">
+                                {{#top_cities}}
+                                <li><i class="fas fa-city"></i> {{city}}: {{value}}</li>
+                                {{/top_cities}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Analysis -->
+        <div class="section" id="product-analysis">
+            <div class="section-header">
+                <h2><i class="fas fa-box-open"></i> تحليل المنتجات</h2>
+            </div>
+            
+            <div class="charts-container">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px;">
+                    <i class="fas fa-chart-bar"></i> أفضل المنتجات مبيعاً
+                </h3>
+                
+                <div class="chart-placeholder" style="height: 300px; margin-bottom: 30px;">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>رسم بياني لأفضل 10 منتجات مبيعاً</p>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>اسم المنتج</th>
+                            <th>الكمية المباعة</th>
+                            <th>الإيرادات</th>
+                            <th>هامش الربح</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#top_products}}
+                        <tr>
+                            <td>{{rank}}</td>
+                            <td>{{product_name}}</td>
+                            <td>{{quantity}}</td>
+                            <td>{{revenue}}</td>
+                            <td><span class="badge badge-success">{{profit_margin}}%</span></td>
+                        </tr>
+                        {{/top_products}}
+                    </tbody>
+                </table>
+                
+                <div class="mt-40">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">
+                        <i class="fas fa-tags"></i> تحليل الفئات
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        {{#category_performance}}
+                        <div style="background: #F9FAFB; padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px;">
+                                {{percentage}}%
+                            </div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                {{category}}
+                            </div>
+                        </div>
+                        {{/category_performance}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Marketing Analysis -->
+        <div class="section" id="marketing-analysis">
+            <div class="section-header">
+                <h2><i class="fas fa-bullhorn"></i> تحليل التسويق</h2>
+            </div>
+            
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <div class="analysis-card-header">
+                        <h3><i class="fas fa-traffic-light"></i> قنوات الزيارات</h3>
+                    </div>
+                    <div class="analysis-card-content">
+                        <div class="chart-placeholder" style="height: 250px; margin-bottom: 20px;">
+                            <i class="fas fa-chart-pie"></i>
+                            <p>توزيع قنوات الزيارات</p>
+                        </div>
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>القناة</th>
+                                    <th>الزيارات</th>
+                                    <th>معدل التحويل</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#traffic_channels}}
+                                <tr>
+                                    <td>{{channel}}</td>
+                                    <td>{{visits}}</td>
+                                    <td><span class="badge badge-primary">{{conversion_rate}}%</span></td>
+                                </tr>
+                                {{/traffic_channels}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="analysis-card">
+                    <div class="analysis-card-header">
+                        <h3><i class="fas fa-ad"></i> أداء الحملات</h3>
+                    </div>
+                    <div class="analysis-card-content">
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--secondary-color); margin-bottom: 15px;">أفضل الحملات أداءً</h4>
+                            <ul class="analysis-list">
+                                {{#top_campaigns}}
+                                <li><i class="fas fa-bullseye"></i> {{campaign}}: ROAS {{roas}}</li>
+                                {{/top_campaigns}}
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--secondary-color); margin-bottom: 15px;">تكلفة اكتساب العميل (CAC)</h4>
+                            <div style="text-align: center; padding: 20px; background: #F0F9FF; border-radius: 10px;">
+                                <div style="font-size: 2.5rem; font-weight: bold; color: var(--primary-color);">
+                                    {{cac}}
+                                </div>
+                                <div style="color: var(--text-secondary);">
+                                    متوسط تكلفة اكتساب العميل
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommendations -->
+        <div class="section" id="recommendations">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb"></i> التوصيات</h2>
+            </div>
+            
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <div class="rec-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <span class="rec-priority priority-high">أولوية عالية</span>
+                    <h4>تحسين تجربة المستخدم</h4>
+                    <p>تحسين سرعة الموقع وتبسيط عملية الدفع لزيادة معدل التحويل</p>
+                    <div class="mt-20">
+                        <span class="badge badge-primary">التسويق</span>
+                        <span class="badge badge-success">التطوير</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="rec-priority priority-high">أولوية عالية</span>
+                    <h4>تحسين استهداف الإعلانات</h4>
+                    <p>استخدام بيانات الشرائح لتطوير حملات إعلانية أكثر تخصيصاً</p>
+                    <div class="mt-20">
+                        <span class="badge badge-primary">التسويق</span>
+                        <span class="badge badge-warning">التحليلات</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <span class="rec-priority priority-medium">أولوية متوسطة</span>
+                    <h4>توسيع نطاق المنتجات</h4>
+                    <p>إضافة منتجات تكميلية بناءً على تحليل سلة التسوق</p>
+                    <div class="mt-20">
+                        <span class="badge badge-success">التطوير</span>
+                        <span class="badge badge-warning">المخزون</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <span class="rec-priority priority-medium">أولوية متوسطة</span>
+                    <h4>برنامج ولاء العملاء</h4>
+                    <p>إنشاء برنامج ولاء لزيادة معدل تكرار الشراء</p>
+                    <div class="mt-20">
+                        <span class="badge badge-primary">التسويق</span>
+                        <span class="badge badge-success">العمليات</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <span class="rec-priority priority-low">أولوية منخفضة</span>
+                    <h4>تطبيق الجوال</h4>
+                    <p>تطوير تطبيق جوال لتوفير تجربة تسوق أفضل</p>
+                    <div class="mt-20">
+                        <span class="badge badge-success">التطوير</span>
+                        <span class="badge badge-warning">التسويق</span>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <span class="rec-priority priority-low">أولوية منخفضة</span>
+                    <h4>التوسع الجغرافي</h4>
+                    <p>التوسع في مناطق جديدة بناءً على تحليل المناطق الواعدة</p>
+                    <div class="mt-20">
+                        <span class="badge badge-primary">التسويق</span>
+                        <span class="badge badge-success">العمليات</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Implementation Timeline -->
+            <div class="mt-40">
+                <h3 style="color: var(--primary-color); margin-bottom: 30px;">
+                    <i class="fas fa-calendar-check"></i> جدول التنفيذ المقترح
+                </h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 style="color: var(--primary-color);">الأسبوع 1-2</h4>
+                            <p>تحليل عميق وتحسين تجربة المستخدم</p>
+                            <div class="mt-10">
+                                <span class="badge badge-primary">مباشر</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 style="color: var(--primary-color);">الأسبوع 3-4</h4>
+                            <p>تحسين استراتيجيات التسويق والإعلان</p>
+                            <div class="mt-10">
+                                <span class="badge badge-primary">مباشر</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 style="color: var(--primary-color);">الشهر 2</h4>
+                            <p>إطلاق منتجات جديدة وتحسين المخزون</p>
+                            <div class="mt-10">
+                                <span class="badge badge-success">متوسط المدى</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4 style="color: var(--primary-color);">الشهر 3-6</h4>
+                            <p>تطوير برنامج ولاء واستراتيجيات متقدمة</p>
+                            <div class="mt-10">
+                                <span class="badge badge-warning">طويل المدى</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Appendix -->
+        <div class="section" id="appendix">
+            <div class="section-header">
+                <h2><i class="fas fa-file-alt"></i> الملاحق</h2>
+            </div>
+            
+            <div class="analysis-card">
+                <div class="analysis-card-header">
+                    <h3><i class="fas fa-database"></i> مصادر البيانات</h3>
+                </div>
+                <div class="analysis-card-content">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>المصدر</th>
+                                <th>نوع البيانات</th>
+                                <th>فترة التغطية</th>
+                                <th>الجودة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#data_sources}}
+                            <tr>
+                                <td>{{source}}</td>
+                                <td>{{data_type}}</td>
+                                <td>{{coverage}}</td>
+                                <td><span class="badge badge-success">{{quality}}</span></td>
+                            </tr>
+                            {{/data_sources}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mt-30">
+                <div class="analysis-card">
+                    <div class="analysis-card-header">
+                        <h3><i class="fas fa-info-circle"></i> تعريفات المؤشرات</h3>
+                    </div>
+                    <div class="analysis-card-content">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <div>
+                                <h4 style="color: var(--secondary-color);">مؤشرات المبيعات</h4>
+                                <ul class="analysis-list">
+                                    <li><strong>AOV:</strong> متوسط قيمة الطلب</li>
+                                    <li><strong>CLV:</strong> قيمة العميل مدى الحياة</li>
+                                    <li><strong>CR:</strong> معدل التحويل</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--secondary-color);">مؤشرات التسويق</h4>
+                                <ul class="analysis-list">
+                                    <li><strong>CAC:</strong> تكلفة اكتساب العميل</li>
+                                    <li><strong>ROAS:</strong> العائد على الإنفاق الإعلاني</li>
+                                    <li><strong>CTR:</strong> معدل النقر</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Report Footer -->
+        <div class="report-footer">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-file-contract"></i> معلومات التقرير</h4>
+                    <p>رقم التقرير: {{report_id}}</p>
+                    <p>تاريخ الإنشاء: {{generation_date}}</p>
+                    <p>فترة التغطية: {{report_period}}</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-user-tie"></i> جهة الإعداد</h4>
+                    <p>نظام التحليل الذكي للمتاجر الإلكترونية</p>
+                    <p>إدارة التحليلات والأبحاث</p>
+                    <p>الإصدار: {{system_version}}</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-shield-alt"></i> الخصوصية</h4>
+                    <p>هذا التقرير سري وخاص</p>
+                    <p>يجب عدم توزيعه خارج الجهات المصرح لها</p>
+                    <p>تاريخ الصلاحية: {{expiry_date}}</p>
+                </div>
+            </div>
+            
+            <div class="footer-contact">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>البريد الإلكتروني: analytics@ecommerce.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>رقم الهاتف: +966 55 123 4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-globe"></i>
+                    <span>الموقع الإلكتروني: https://analytics.ecommerce.com</span>
+                </div>
+            </div>
+            
+            <div class="mt-30" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <p style="font-size: 0.9rem; opacity: 0.8;">
+                    © {{current_year}} نظام التحليل الذكي للمتاجر الإلكترونية. جميع الحقوق محفوظة.<br>
+                    تم إنشاء هذا التقرير تلقائياً بناءً على أحدث تقنيات تحليل البيانات.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Smooth scrolling for table of contents links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Print button functionality (if needed)
+        function printReport() {
+            window.print();
+        }
+        
+        // Export as PDF functionality
+        function exportAsPDF() {
+            alert('ميزة التصدير إلى PDF ستتوفر في الإصدار القادم');
+        }
+        
+        // Highlight current section in TOC
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if(pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Add print button to header (optional)
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.report-header');
+            if(header) {
+                const printBtn = document.createElement('button');
+                printBtn.innerHTML = '<i class="fas fa-print"></i> طباعة التقرير';
+                printBtn.style.cssText = `
+                    position: absolute;
+                    left: 20px;
+                    top: 20px;
+                    background: rgba(255,255,255,0.2);
+                    color: white;
+                    border: 2px solid white;
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-family: 'Cairo', sans-serif;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                `;
+                printBtn.onmouseover = () => {
+                    printBtn.style.background = 'rgba(255,255,255,0.3)';
+                };
+                printBtn.onmouseout = () => {
+                    printBtn.style.background = 'rgba(255,255,255,0.2)';
+                };
+                printBtn.onclick = printReport;
+                
+                header.style.position = 'relative';
+                header.appendChild(printBtn);
+            }
+        });
+    </script>
+</body>
+</html>
