@@ -141,3 +141,18 @@ class StoreTypeDetector:
         }
         
         return display_names.get(language, {}).get(store_type, store_type)
+# ===============================
+#  توافق مع النسخ القديمة (Compatibility Layer)
+# ===============================
+
+def detect_store_type(dataframe):
+    """
+    دالة توافقية لتتوافق مع الإصدارات القديمة
+    """
+    detector = StoreTypeDetector()
+    store_type, confidence = detector.detect(dataframe)
+    return store_type, confidence
+
+
+# استخراج أنواع المتاجر المتاحة من STORE_PATTERNS
+SUPPORTED_STORES = list(StoreTypeDetector.STORE_PATTERNS.keys()) + ['general']
